@@ -13,7 +13,7 @@ const BASE_URL = "https://api.finazon.io/latest/finazon/forex/time_series";
 async function fetchForexData(
   ticker = "EUR/USD",
   interval = "1m",
-  pageSize = 100
+  pageSize = 1000
 ) {
   const url = `${BASE_URL}?ticker=${ticker}&interval=${interval}&page=0&page_size=${pageSize}&apikey=${FINAZON_API_KEY}`;
   try {
@@ -376,8 +376,9 @@ function calculateVolume(data) {
 app.get("/predict", async (req, res) => {
   try {
     // Fetching forex data
-    const forexData = await fetchForexData("EUR/USD", "1m", 300);
+    const newforexData = await fetchForexData("EUR/USD", "1m", 1000);
 
+    const forexData = newforexData.sort((a, b) => a.t - b.t)
     // Ensure data has enough points for the calculation
     if (forexData.length < 30) {
       return res.status(400).json({ error: "Not enough data for prediction" });
