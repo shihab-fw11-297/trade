@@ -13,7 +13,7 @@ const BASE_URL = "https://api.finazon.io/latest/finazon/forex/time_series";
 async function fetchForexData(
   ticker = "EUR/USD",
   interval = "1m",
-  pageSize = 60
+  pageSize = 100
 ) {
   const url = `${BASE_URL}?ticker=${ticker}&interval=${interval}&page=0&page_size=${pageSize}&apikey=${FINAZON_API_KEY}`;
   try {
@@ -434,7 +434,7 @@ function combineAllStrategies(signals) {
     priceAction: 0.2,
     movingAverage: 0.2,
     candles:0.2,
-    ml: 0.4,
+    ml: 0.2,
   };
 
   // Initialize a counter for buy/sell/flat signals
